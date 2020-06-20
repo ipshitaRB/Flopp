@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Flopp</string>
+    <string name="api_key">"df6f7e2aa90068ffdfa5ec15adf49219"</string>
 </resources>
