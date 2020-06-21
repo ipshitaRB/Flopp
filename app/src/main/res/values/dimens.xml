@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="constraint_layout_margin">8dp</dimen>
+    <dimen name="elevation">4dp</dimen>
+    <dimen name="constraint_layout_bottom_padding">16dp</dimen>
+    <dimen name="thumbnail_margin">16dp</dimen>
+    <dimen name="list_margin">8dp</dimen>
+</resources>

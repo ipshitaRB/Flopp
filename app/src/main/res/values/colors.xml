@@ -9,4 +9,5 @@
     <color name="less_dark_grey">#424242</color>
     <color name="yellow">#FFD600</color>
     <color name="star_tint">#FFD235</color>
+    <color name="color_list_bg">#FFC107</color>
 </resources>

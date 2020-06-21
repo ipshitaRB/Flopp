@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="movie"
+            type="com.droidrbi.flopp.network.models.Result" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/constraint_layout_margin"
+        android:background="@drawable/item_background"
+        android:elevation="@dimen/elevation"
+        android:paddingBottom="@dimen/constraint_layout_bottom_padding">
+
+        <ImageView
+            android:id="@+id/thumbnailImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/thumbnail_margin"
+            android:layout_marginTop="@dimen/thumbnail_margin"
+            android:contentDescription="@string/movie_poster_image"
+            android:cropToPadding="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/loading_img"
+            tools:src="@drawable/loading_animation" />
+
+        <TextView
+            android:id="@+id/movieTitleTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="@{movie.title}"
+            android:textColor="@color/dark_grey"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/thumbnailImageView"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Artemis Fowl" />
+
+        <TextView
+            android:id="@+id/ratingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(movie.voteAverage)}"
+            android:textColor="@color/dark_grey"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/star"
+            app:layout_constraintStart_toEndOf="@+id/star"
+            tools:text="8.0" />
+
+        <ImageView
+            android:id="@+id/star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:baselineAlignBottom="false"
+            android:contentDescription="@string/rating_star"
+            app:layout_constraintStart_toEndOf="@+id/thumbnailImageView"
+            app:layout_constraintTop_toBottomOf="@+id/movieTitleTextView"
+            app:srcCompat="@drawable/ic_baseline_star_24" />
+
+        <TextView
+            android:id="@+id/voteCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{String.valueOf(movie.voteCount)}"
+            app:layout_constraintBaseline_toBaselineOf="@+id/ratingTextView"
+            app:layout_constraintStart_toEndOf="@+id/ratingTextView"
+            tools:text="300" />
+
+        <TextView
+            android:id="@+id/overviewText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:maxLines="6"
+            android:text="@{movie.overview}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/star"
+            app:layout_constraintTop_toBottomOf="@+id/ratingTextView"
+            tools:text="Lorem Ipsum Morgen Falafel Lorem Ipsum Morgen Falafel Lorem Ipsum Morgen Falafel" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
