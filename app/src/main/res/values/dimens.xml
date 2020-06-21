@@ -5,4 +5,14 @@
     <dimen name="constraint_layout_bottom_padding">16dp</dimen>
     <dimen name="thumbnail_margin">16dp</dimen>
     <dimen name="list_margin">8dp</dimen>
+    <dimen name="title_size">24sp</dimen>
+    <dimen name="title_margin">16dp</dimen>
+    <dimen name="rating_text_size">20sp</dimen>
+    <dimen name="star_margin">16dp</dimen>
+    <dimen name="vote_count_margin">8dp</dimen>
+    <dimen name="overview_margin">16dp</dimen>
+    <dimen name="white_bg_top_margin">200dp</dimen>
+    <dimen name="white_bg_margin">16dp</dimen>
+    <dimen name="thumbnail_top_margin">100dp</dimen>
+    <dimen name="release_margin">16dp</dimen>
 </resources>

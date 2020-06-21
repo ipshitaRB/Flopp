@@ -1,6 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.detail.DetailFragment" />
+    tools:context=".fragments.detail.DetailFragment">
+
+    <data>
+
+        <variable
+            name="movie"
+            type="com.droidrbi.flopp.network.models.Result" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_list_bg"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/whiteImageView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/white_bg_margin"
+                android:layout_marginTop="@dimen/white_bg_top_margin"
+                android:layout_marginEnd="@dimen/white_bg_margin"
+                android:layout_marginBottom="@dimen/white_bg_margin"
+                android:contentDescription="@string/white_background"
+                android:src="@drawable/item_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/thumbnail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/movie_poster_image"
+                app:layout_constraintBottom_toTopOf="@+id/whiteImageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/whiteImageView"
+                app:srcCompat="@drawable/ic_broken_image" />
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/title_style"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/title_margin"
+                android:layout_marginTop="@dimen/title_margin"
+                android:layout_marginEnd="@dimen/title_margin"
+                android:gravity="center"
+                android:text="@{movie.title}"
+                app:layout_constraintEnd_toEndOf="@+id/whiteImageView"
+                app:layout_constraintStart_toStartOf="@+id/whiteImageView"
+                app:layout_constraintTop_toBottomOf="@+id/thumbnail"
+                tools:text="Artemis Fowl" />
+
+            <TextView
+                android:id="@+id/releaseDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/release_margin"
+                android:text="@{movie.releaseDateString}"
+                app:layout_constraintEnd_toEndOf="@+id/whiteImageView"
+                app:layout_constraintStart_toStartOf="@+id/whiteImageView"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                tools:text="2014-09-02" />
+
+            <ImageView
+                android:id="@+id/star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/star_margin"
+                android:contentDescription="@string/rating_star"
+                app:layout_constraintEnd_toStartOf="@+id/rating"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/releaseDate"
+                app:srcCompat="@drawable/ic_baseline_star_24" />
+
+            <TextView
+                android:id="@+id/rating"
+                style="@style/rating_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(movie.voteAverage)}"
+                app:layout_constraintBottom_toBottomOf="@+id/star"
+                app:layout_constraintEnd_toStartOf="@+id/voteCount"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/star"
+                tools:text="8.0" />
+
+            <TextView
+                android:id="@+id/voteCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/vote_count_margin"
+                android:text="@{String.valueOf(movie.voteCount)}"
+                app:layout_constraintBaseline_toBaselineOf="@+id/rating"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/rating"
+                tools:text="67000" />
+
+            <TextView
+                android:id="@+id/overviewText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/overview_margin"
+                android:layout_marginTop="@dimen/overview_margin"
+                android:layout_marginEnd="@dimen/overview_margin"
+                android:layout_marginBottom="16dp"
+                android:gravity="center_horizontal"
+                android:text="@{movie.overview}"
+                app:layout_constraintBottom_toBottomOf="@+id/whiteImageView"
+                app:layout_constraintEnd_toEndOf="@+id/whiteImageView"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/whiteImageView"
+                app:layout_constraintTop_toBottomOf="@+id/rating"
+                tools:text="Lorem Ipsum Morgen Falafel Lorem Ipsum Morgen Falafel Lorem Ipsum Morgen Falafel" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

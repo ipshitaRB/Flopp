@@ -47,8 +47,7 @@ class ListFragment : Fragment(), MovieListAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(movie: Result) {
-        // uncomment after movie arg is added
-        //navController.navigate(ListFragmentDirections.actionListFragmentToDetailFragment(movie))
+        navController.navigate(ListFragmentDirections.actionListFragmentToDetailFragment(movie))
     }
 
     private fun getMovies() {

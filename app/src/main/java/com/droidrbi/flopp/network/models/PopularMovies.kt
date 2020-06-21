@@ -1,11 +1,14 @@
 package com.droidrbi.flopp.network.models
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.android.parcel.Parcelize
 
 data class PopularMovies(
     val results: List<Result>
 )
 
+@Parcelize
 data class Result(
 
     val id: Int,
@@ -26,4 +29,4 @@ data class Result(
     @Json(name = "vote_count")
     val voteCount: Int
 
-)
+) : Parcelable
