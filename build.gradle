@@ -2,8 +2,10 @@
 buildscript {
     ext{
         kotlin_version = "1.3.72"
-        version_retrofit = "2.5.0"
-        version_moshi = "1.8.0"
+        version_retrofit = "2.7.2"
+        version_moshi = "1.9.2"
+        nav_version = "2.3.0-beta01"
+        picassoVersion = "2.71828"
     }
     repositories {
         google()
@@ -13,6 +15,8 @@ buildscript {
         classpath "com.android.tools.build:gradle:4.0.0"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
+        //navigation
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
