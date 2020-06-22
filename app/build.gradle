@@ -82,10 +82,11 @@ dependencies {
     implementation "com.squareup.picasso:picasso:$picasso_version"
 
     // Room and lifecycle dependecies
+    // Room components
     implementation "androidx.room:room-runtime:$room_version"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "androidx.room:room-compiler:$room_version"
-    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation "androidx.room:room-ktx:$room_version"
+    androidTestImplementation "androidx.room:room-testing:$room_version"
 
 
 
