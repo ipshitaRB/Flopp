@@ -75,4 +75,15 @@ class MovieDatabaseTest {
 
     }
 
+    @Test
+    fun emptyDatabaseTest() = runBlocking {
+        val emptyMovieList = movieDao.getAllMovies()
+        assertEquals("List is not empty", 0, emptyMovieList.size)
+    }
+
+    @Test
+    fun compareListTest() {
+        // compare without using dbId
+    }
+
 }
