@@ -8,8 +8,7 @@ import com.droidrbi.flopp.database.model.Movie
 
 @Database(
     entities = [Movie::class],
-    version = 1,
-    exportSchema = false
+    version = 2
 )
 abstract class MovieDatabase : RoomDatabase() {
 
@@ -30,7 +29,8 @@ abstract class MovieDatabase : RoomDatabase() {
                     context.applicationContext,
                     MovieDatabase::class.java,
                     DatabaseConstants.DATABASE_NAME
-                ).build()
+                ).fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 return instance
             }

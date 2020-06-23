@@ -13,6 +13,6 @@ interface MovieDatabaseDao {
     suspend fun insertPopularMovies(movies: List<Movie>)
 
     @Query("SELECT * FROM ${DatabaseConstants.TABLE_NAME}")
-    fun getAllMovies(): List<Movie>
+    suspend fun getAllMovies(): List<Movie>
 
 }

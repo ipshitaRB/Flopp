@@ -8,7 +8,10 @@ import com.droidrbi.flopp.database.DatabaseConstants
 @Entity(tableName = DatabaseConstants.TABLE_NAME)
 data class Movie(
 
-    @PrimaryKey @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true)
+    val dbId: Long = 0L,
+
+    @ColumnInfo(name = "id")
     val id: Int,
 
     @ColumnInfo(name = "overview")

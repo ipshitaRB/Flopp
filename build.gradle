@@ -7,6 +7,7 @@ buildscript {
         nav_version = "2.3.0-beta01"
         picasso_version = "2.71828"
         room_version = "2.2.5"
+        coroutine_version = "1.3.6"
     }
     repositories {
         google()
