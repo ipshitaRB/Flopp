@@ -6,4 +6,5 @@
     <string name="white_background">White Background</string>
     <string name="loading_previous_list">Network unavailable. Loading previous list of movies</string>
     <string name="internet_not_connected">Network unavailable</string>
+    <string name="rent">Rent</string>
 </resources>

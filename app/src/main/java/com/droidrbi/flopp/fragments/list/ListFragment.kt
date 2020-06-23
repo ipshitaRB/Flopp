@@ -96,12 +96,6 @@ class ListFragment : Fragment(), MovieListAdapter.OnItemClickListener {
             })
     }
 
-    /* private fun isMovieInDatabase(): Boolean{
-         uiScope.launch {
-             var isMovieDBEmpty = fetchMoviesFromDB() == null
-         }
-     }*/
-
     private fun updateMovieList() {
         uiScope.launch {
             _dataset = fetchMoviesFromDB()
@@ -110,6 +104,7 @@ class ListFragment : Fragment(), MovieListAdapter.OnItemClickListener {
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(context)
                 adapter = _adapter
+
             }
         }
     }
