@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Flopp</string>
-    <string name="api_key">"df6f7e2aa90068ffdfa5ec15adf49219"</string>
+    <string name="api_key">"Your API Key here"</string>
     <string name="movie_poster_image">Movie Poster Image</string>
     <string name="rating_star">Rating star</string>
     <string name="white_background">White Background</string>
     <string name="loading_previous_list">Network unavailable. Loading previous list of movies</string>
     <string name="internet_not_connected">Network unavailable</string>
-    <string name="rent">Rent</string>
+    <string name="rent">Rent from $4.99</string>
 </resources>
