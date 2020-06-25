@@ -2,6 +2,7 @@ package com.droidrbi.flopp.fragments.list
 
 import android.app.Application
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,8 +41,8 @@ class ListFragment : Fragment(), MovieListAdapter.OnItemClickListener {
     private lateinit var _adapter: MovieListAdapter
     private lateinit var _application: Application
     private lateinit var _dataSource: MovieDatabaseDao
-    private var viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    private lateinit var viewModelJob: Job
+    private lateinit var uiScope: CoroutineScope
 
 
     override fun onCreateView(
@@ -52,7 +53,8 @@ class ListFragment : Fragment(), MovieListAdapter.OnItemClickListener {
         _application = requireNotNull(this.activity).application
 
         _dataSource = MovieDatabase.getDatabase(_application).movieDatabaseDao()
-
+        viewModelJob = Job()
+        uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
         showData()
         return _listBinding.root
     }
@@ -97,7 +99,10 @@ class ListFragment : Fragment(), MovieListAdapter.OnItemClickListener {
     }
 
     private fun updateMovieList() {
+        Log.d("ListFragment", "UpdateMovieListCalled")
         uiScope.launch {
+
+            Log.d("ListFragment", "Inside UIScope")
             _dataset = fetchMoviesFromDB()
             _adapter = MovieListAdapter(_dataset, this@ListFragment)
             _listBinding.movieListView.apply {
