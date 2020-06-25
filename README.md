@@ -26,9 +26,13 @@
  * Android Studio
  
  ## Installation
- Clone github repository and import into _Android Studio_:
+* Clone github repository and import into _Android Studio_:
 https://github.com/ipshitaRB/Flopp.git
- 
+* Replace the api key in the strings.xml in res/values folder.
+
+
+
+
  
  
 
