@@ -19,6 +19,7 @@
 
 ## Third Party Libraries used
  * [Retrofit2](https://square.github.io/retrofit/)
+ * [Moshi](https://github.com/square/moshi)
  * [Picasso](https://square.github.io/picasso/)
 
  
