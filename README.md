@@ -4,7 +4,7 @@
 
 
  <p align="center">
-  <img src="https://user-images.githubusercontent.com/11401599/85379898-47601100-b50a-11ea-9ea0-54973671997f.gif" alt="app_screenshot" width=200 height=400>
+  <img src="https://user-images.githubusercontent.com/11401599/85887063-19522980-b7b5-11ea-8708-4db9a6689f45.gif" alt="app_screenshot" width=200 height=400>
  </p>
  
  ## About
@@ -19,6 +19,7 @@
 
 ## Third Party Libraries used
  * [Retrofit2](https://square.github.io/retrofit/)
+ * [Moshi](https://github.com/square/moshi)
  * [Picasso](https://square.github.io/picasso/)
 
  
