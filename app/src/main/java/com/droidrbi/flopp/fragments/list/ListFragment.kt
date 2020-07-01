@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,7 +37,8 @@ import retrofit2.Response
 class ListFragment : Fragment(), MovieListAdapter.OnItemClickListener {
 
     private lateinit var navController: NavController
-
+    private lateinit var _viewModel: MovieViewModel
+    private lateinit var _viewModelFactory: MovieViewModelFactory
     private lateinit var _listBinding: FragmentListBinding
     private lateinit var _dataset: List<Result>
     private lateinit var _adapter: MovieListAdapter
@@ -50,13 +53,46 @@ class ListFragment : Fragment(), MovieListAdapter.OnItemClickListener {
         savedInstanceState: Bundle?
     ): View? {
         _listBinding = FragmentListBinding.inflate(inflater, container, false)
-        _application = requireNotNull(this.activity).application
 
+        _listBinding.lifecycleOwner = viewLifecycleOwner
+
+        _application = requireNotNull(this.activity).application
+        _viewModelFactory = MovieViewModelFactory(context = _application)
+
+        _viewModel = ViewModelProvider(this, _viewModelFactory)
+            .get(MovieViewModel::class.java)
+        _listBinding.viewModel = _viewModel
+        _viewModel.popularMovies.observe(viewLifecycleOwner, Observer {
+            updateRecyclerView(it)
+        })
+        _viewModel.isNetworkAvailable.observe(viewLifecycleOwner, Observer {
+            if (!it) {
+                showNetworkUnavailableMessage()
+            }
+        })
         _dataSource = MovieDatabase.getDatabase(_application).movieDatabaseDao()
         viewModelJob = Job()
         uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
         showData()
         return _listBinding.root
+    }
+
+    private fun showNetworkUnavailableMessage() {
+        Toast.makeText(
+            context,
+            getString(R.string.internet_not_connected),
+            Toast.LENGTH_LONG
+        ).show()
+    }
+
+    private fun updateRecyclerView(movieList: List<Result>?) {
+        _adapter = MovieListAdapter(movieList!!, this@ListFragment)
+        _listBinding.movieListView.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+            adapter = _adapter
+        }
+
     }
 
     private fun showData() {

@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
 data class PopularMovies(
-    val results: List<Result>
+    var results: List<Result>
 )
 
 @Parcelize

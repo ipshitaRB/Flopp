@@ -4,6 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".fragments.list.ListFragment">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.droidrbi.flopp.fragments.list.MovieViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
