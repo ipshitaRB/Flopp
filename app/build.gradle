@@ -94,6 +94,11 @@ dependencies {
     // ViewModel
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
+    // Dagger
+    implementation 'com.google.dagger:dagger:2.11'
+    kapt 'com.google.dagger:dagger-compiler:2.11'
+    compileOnly 'javax.annotation:jsr250-api:1.0'
+
 
 
 

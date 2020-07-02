@@ -57,6 +57,7 @@ class ListFragment : Fragment(), MovieListAdapter.OnItemClickListener {
         _listBinding.lifecycleOwner = viewLifecycleOwner
 
         _application = requireNotNull(this.activity).application
+
         _viewModelFactory = MovieViewModelFactory(context = _application)
 
         _viewModel = ViewModelProvider(this, _viewModelFactory)
@@ -73,7 +74,7 @@ class ListFragment : Fragment(), MovieListAdapter.OnItemClickListener {
         _dataSource = MovieDatabase.getDatabase(_application).movieDatabaseDao()
         viewModelJob = Job()
         uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-        showData()
+        //showData()
         return _listBinding.root
     }
 
@@ -92,7 +93,7 @@ class ListFragment : Fragment(), MovieListAdapter.OnItemClickListener {
             layoutManager = LinearLayoutManager(context)
             adapter = _adapter
         }
-
+        _adapter.notifyDataSetChanged()
     }
 
     private fun showData() {
