@@ -1,5 +1,6 @@
 package com.droidrbi.flopp.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -13,6 +14,6 @@ interface MovieDatabaseDao {
     suspend fun insertPopularMovies(movies: List<Movie>)
 
     @Query("SELECT * FROM ${DatabaseConstants.TABLE_NAME}")
-    suspend fun getAllMovies(): List<Movie>
+    fun getAllMovies(): LiveData<List<Movie>>
 
 }

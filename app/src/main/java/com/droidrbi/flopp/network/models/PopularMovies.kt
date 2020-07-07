@@ -1,6 +1,7 @@
 package com.droidrbi.flopp.network.models
 
 import android.os.Parcelable
+import com.droidrbi.flopp.database.model.Movie
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
@@ -30,3 +31,20 @@ data class Result(
     val voteCount: Int
 
 ) : Parcelable
+
+/**
+ * Convert Network results to database objects
+ */
+fun PopularMovies.asDatabaseModel(): List<Movie> {
+    return results.map {
+        Movie(
+            id = it.id,
+            overview = it.overview,
+            posterUrl = it.posterUrl,
+            releaseDateString = it.releaseDateString,
+            title = it.title,
+            voteAverage = it.voteAverage,
+            voteCount = it.voteCount
+        )
+    }
+}

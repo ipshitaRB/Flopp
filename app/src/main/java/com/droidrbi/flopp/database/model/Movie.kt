@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.droidrbi.flopp.database.DatabaseConstants
+import com.droidrbi.flopp.network.models.Result
 
 @Entity(tableName = DatabaseConstants.TABLE_NAME)
 data class Movie(
@@ -33,3 +34,20 @@ data class Movie(
     val voteCount: Int
 
 )
+
+/**
+ * Map DatabaseVideos to domain entities
+ */
+fun List<Movie>.asDomainModel(): List<Result> {
+    return map {
+        Result(
+            it.id,
+            it.overview,
+            it.posterUrl,
+            it.releaseDateString,
+            it.title,
+            it.voteAverage,
+            it.voteCount
+        )
+    }
+}

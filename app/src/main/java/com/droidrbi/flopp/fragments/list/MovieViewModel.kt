@@ -2,76 +2,84 @@ package com.droidrbi.flopp.fragments.list
 
 import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.droidrbi.flopp.R
-import com.droidrbi.flopp.network.MovieApi
-import com.droidrbi.flopp.network.NetworkUtil.Companion.isConnectedToNetwork
-import com.droidrbi.flopp.network.models.PopularMovies
+import com.droidrbi.flopp.database.MovieDatabase
 import com.droidrbi.flopp.network.models.Result
 import com.droidrbi.flopp.repository.MovieRepository
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import java.io.IOException
 
 class MovieViewModel(
-    context: Application
-) : ViewModel() {
+    application: Application
+) : AndroidViewModel(application) {
 
-    private var _popularMovies = MutableLiveData<List<Result>>()
+    private val movieRepository = MovieRepository(MovieDatabase.getDatabase(application))
 
-    val popularMovies: LiveData<List<Result>>
-        get() = _popularMovies
+    val popularMovies: LiveData<List<Result>> = movieRepository.movies
+
+    private val viewModelJob = SupervisorJob()
 
 
-    private var _isNetworkAvailable = MutableLiveData<Boolean>()
+    private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    val isNetworkAvailable: LiveData<Boolean>
-        get() = _isNetworkAvailable
+    /**
+     * Event triggered for network error. This is private to avoid exposing a
+     * way to set this value to observers.
+     */
+    private var _eventNetworkError = MutableLiveData<Boolean>(false)
 
-    private val movieRepository: MovieRepository
-        get() = MovieRepository()
+    /**
+     * Event triggered for network error. Views should use this to get access
+     * to the data.
+     */
+    val eventNetworkError: LiveData<Boolean>
+        get() = _eventNetworkError
 
+    /**
+     * Flag to display the error message. This is private to avoid exposing a
+     * way to set this value to observers.
+     */
+    private var _isNetworkErrorShown = MutableLiveData<Boolean>(false)
+
+    /**
+     * Flag to display the error message. Views should use this to get access
+     * to the data.
+     */
+    val isNetworkErrorShown: LiveData<Boolean>
+        get() = _isNetworkErrorShown
 
     init {
         Log.i(TAG, "ViewModel initialized")
-        _isNetworkAvailable.value = true
-        val apiKey = context.getString(R.string.api_key)
-        if (isConnectedToNetwork(context)) {
-            //getMovies(apiKey)
-            _popularMovies = movieRepository.getMovies(apiKey)
-            _isNetworkAvailable.value = true
-        } else {
-            _isNetworkAvailable.value = false
+        val apiKey = application.getString(R.string.api_key)
+        refreshDataFromRepository(apiKey)
+
+    }
+
+    private fun refreshDataFromRepository(apiKey: String) {
+        viewModelScope.launch {
+            try {
+                movieRepository.refreshMovies(apiKey)
+                _eventNetworkError.value = false
+                _isNetworkErrorShown.value = false
+
+            } catch (networkError: IOException) {
+                // Show a Toast error message and hide the progress bar.
+                if (popularMovies.value.isNullOrEmpty())
+                    _eventNetworkError.value = true
+            }
         }
-
-        //_popularMovies.value = MovieRepository.getMovies()
     }
-
-
-    private fun getMovies(apiKey: String) {
-
-        MovieApi.retrofitService.getMovies(apiKey).enqueue(
-            object : Callback<PopularMovies> {
-                override fun onFailure(call: Call<PopularMovies>, t: Throwable) {
-                    Log.d("ViewModel", "${t.message}")
-                }
-
-                override fun onResponse(
-                    call: Call<PopularMovies>,
-                    response: Response<PopularMovies>
-                ) {
-                    Log.i("ViewModel", _popularMovies.value.toString())
-                    _popularMovies.value = response.body()!!.results
-                }
-            })
-    }
-
 
     override fun onCleared() {
         super.onCleared()
         Log.d(TAG, "ViewModel destroyed")
+        viewModelJob.cancel()
     }
 
     companion object {

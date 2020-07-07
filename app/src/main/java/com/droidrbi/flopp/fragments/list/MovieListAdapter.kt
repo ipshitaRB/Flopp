@@ -10,10 +10,23 @@ import com.droidrbi.flopp.network.models.Result
 import com.squareup.picasso.Picasso
 
 class MovieListAdapter(
-    private val _dataset: List<Result>,
     private var itemClickListener: OnItemClickListener
 ) :
     RecyclerView.Adapter<MovieListAdapter.CollectibleViewHolder>() {
+
+    /**
+     * The videos that our Adapter will show
+     */
+    var movieList: List<Result> = emptyList()
+        set(value) {
+            field = value
+            // For an extra challenge, update this to use the paging library.
+
+            // Notify any registered observers that the data set has changed. This will cause every
+            // element in our RecyclerView to be invalidated.
+            notifyDataSetChanged()
+        }
+
 
     class CollectibleViewHolder(var itemLayoutBinding: MovieCardLayoutBinding) :
         RecyclerView.ViewHolder(itemLayoutBinding.root) {
@@ -37,10 +50,10 @@ class MovieListAdapter(
         return CollectibleViewHolder(itemLayoutBinding)
     }
 
-    override fun getItemCount(): Int = _dataset.size
+    override fun getItemCount(): Int = movieList.size
 
     override fun onBindViewHolder(holder: CollectibleViewHolder, position: Int) {
-        val item = _dataset[position]
+        val item = movieList[position]
         val picasso = Picasso.get()
         holder.itemLayoutBinding.movie = item
         val imageURI = "https://image.tmdb.org/t/p/w500${item.posterUrl}"

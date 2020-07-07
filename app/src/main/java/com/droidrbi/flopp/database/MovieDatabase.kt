@@ -1,6 +1,6 @@
 package com.droidrbi.flopp.database
 
-import android.content.Context
+import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -19,14 +19,14 @@ abstract class MovieDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: MovieDatabase? = null
 
-        fun getDatabase(context: Context): MovieDatabase {
+        fun getDatabase(application: Application): MovieDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
                 return tempInstance
             }
             synchronized(this) {
                 val instance = Room.databaseBuilder(
-                    context.applicationContext,
+                    application.applicationContext,
                     MovieDatabase::class.java,
                     DatabaseConstants.DATABASE_NAME
                 ).fallbackToDestructiveMigration()
