@@ -28,7 +28,8 @@
             android:cropToPadding="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/loading_img"
+            app:error="@{@drawable/ic_broken_image}"
+            app:imageUrl='@{"https://image.tmdb.org/t/p/w500" + movie.posterUrl}'
             tools:src="@drawable/loading_animation" />
 
         <TextView

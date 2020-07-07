@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.droidrbi.flopp.R
 import com.droidrbi.flopp.databinding.MovieCardLayoutBinding
 import com.droidrbi.flopp.network.models.Result
-import com.squareup.picasso.Picasso
 
 class MovieListAdapter(
     private var itemClickListener: OnItemClickListener
@@ -54,12 +53,7 @@ class MovieListAdapter(
 
     override fun onBindViewHolder(holder: CollectibleViewHolder, position: Int) {
         val item = movieList[position]
-        val picasso = Picasso.get()
         holder.itemLayoutBinding.movie = item
-        val imageURI = "https://image.tmdb.org/t/p/w500${item.posterUrl}"
-        picasso.load(imageURI)
-            .placeholder(R.drawable.ic_broken_image)
-            .into(holder.itemLayoutBinding.thumbnailImageView)
         holder.bind(item, itemClickListener)
     }
 
