@@ -5,10 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.droidrbi.flopp.R
 import com.droidrbi.flopp.databinding.FragmentDetailBinding
 import com.droidrbi.flopp.network.models.Result
-import com.squareup.picasso.Picasso
 
 
 /**
@@ -27,11 +25,11 @@ class DetailFragment : Fragment() {
         val args = DetailFragmentArgs.fromBundle(requireArguments())
         _movie = args.movie
         _binding.movie = _movie
-        val picasso = Picasso.get()
+       /* val picasso = Picasso.get()
         val imageURI = "https://image.tmdb.org/t/p/w500${_movie.posterUrl}"
         picasso.load(imageURI)
             .placeholder(R.drawable.ic_broken_image)
-            .into(_binding.thumbnail)
+            .into(_binding.thumbnail)*/
         return _binding.root
     }
 
